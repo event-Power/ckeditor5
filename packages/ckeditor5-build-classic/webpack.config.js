@@ -9,6 +9,7 @@
 
 const path = require( 'path' );
 const webpack = require( 'webpack' );
+const homedir = require('os').homedir();
 const { bundler, styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
@@ -23,8 +24,8 @@ module.exports = {
 		// The name under which the editor will be exported.
 		library: 'ClassicEditor',
 
-		path: path.resolve( __dirname, 'build' ),
-		filename: 'ckeditor.js',
+		path: path.resolve( homedir, 'dev/tools/vendor/assets/javascripts/ckeditor5' ),
+		filename: 'ckeditor-ep-classic.js',
 		libraryTarget: 'umd',
 		libraryExport: 'default'
 	},

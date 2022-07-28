@@ -6,6 +6,8 @@ external/
 lerna-debug.log
 .idea
 .vscode
+packages/ckeditor5-build-inline/build/translations/*
+*.DS_Store
 
 # Ignore `yarn.lock` - this file might contain info from external repositories.
 yarn.lock

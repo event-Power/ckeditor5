@@ -9,6 +9,7 @@
 
 const path = require( 'path' );
 const webpack = require( 'webpack' );
+const homedir = require('os').homedir();
 const { bundler, styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
@@ -17,14 +18,18 @@ module.exports = {
 	devtool: 'source-map',
 	performance: { hints: false },
 
-	entry: path.resolve( __dirname, 'src', 'ckeditor.js' ),
+	entry: [
+    require.resolve( 'regenerator-runtime/runtime.js' ),
+    path.resolve( __dirname, 'src', 'ckeditor.js' )
+  ],
 
 	output: {
 		// The name under which the editor will be exported.
-		library: 'InlineEditor',
+		library: 'CKEDITOR',
 
-		path: path.resolve( __dirname, 'build' ),
-		filename: 'ckeditor.js',
+		// path: path.resolve( __dirname, 'build' ),
+    path: path.resolve( homedir, 'dev/tools/vendor/assets/javascripts/ckeditor5' ),
+		filename: 'ckeditor-ep.js',
 		libraryTarget: 'umd',
 		libraryExport: 'default'
 	},
@@ -59,6 +64,18 @@ module.exports = {
 
 	module: {
 		rules: [
+      {
+          // Match files from the `ckeditor5` package but also `ckeditor5-*` packages.
+          test: /(ckeditor5(?:-[^\/\\]+)?)[\/\\].+\.js$/,
+          use: [
+              {
+                  loader: 'babel-loader',
+                  options: {
+                      presets: [ require( '@babel/preset-env' ) ]
+                  }
+              }
+          ]
+      },
 			{
 				test: /\.svg$/,
 				use: [ 'raw-loader' ]
