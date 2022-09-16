@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -16,7 +16,7 @@ import ClassicEditorUI from './classiceditorui';
 import ClassicEditorUIView from './classiceditoruiview';
 
 /**
- * The {@glink builds/guides/predefined-builds/overview#classic-editor classic editor} implementation.
+ * The {@glink installation/getting-started/predefined-builds#classic-editor classic editor} implementation.
  * It uses an inline editable and a sticky toolbar, all enclosed in a boxed UI.
  * See the {@glink examples/builds/classic-editor demo}.
  *
@@ -27,9 +27,10 @@ import ClassicEditorUIView from './classiceditoruiview';
  *
  * The classic editor can be used directly from source (if you installed the
  * [`@ckeditor/ckeditor5-editor-classic`](https://www.npmjs.com/package/@ckeditor/ckeditor5-editor-classic) package)
- * but it is also available in the {@glink builds/guides/predefined-builds/overview#classic-editor classic build}.
+ * but it is also available in the {@glink installation/getting-started/predefined-builds#classic-editor classic build}.
  *
- * {@glink builds/guides/predefined-builds/overview Builds} are ready-to-use editors with plugins bundled in. When using the editor from
+ * {@glink installation/getting-started/predefined-builds Builds}
+ * are ready-to-use editors with plugins bundled in. When using the editor from
  * source you need to take care of loading all plugins by yourself
  * (through the {@link module:core/editor/editorconfig~EditorConfig#plugins `config.plugins`} option).
  * Using the editor from source gives much better flexibility and allows easier customization.
@@ -53,10 +54,21 @@ export default class ClassicEditor extends Editor {
 	 * @param {HTMLElement|String} sourceElementOrData The DOM element that will be the source for the created editor
 	 * or the editor's initial data. For more information see
 	 * {@link module:editor-classic/classiceditor~ClassicEditor.create `ClassicEditor.create()`}.
-	 * @param {module:core/editor/editorconfig~EditorConfig} config The editor configuration.
+	 * @param {module:core/editor/editorconfig~EditorConfig} [config] The editor configuration.
 	 */
-	constructor( sourceElementOrData, config ) {
+	constructor( sourceElementOrData, config = {} ) {
+		// If both `config.initialData` is set and initial data is passed as the constructor parameter, then throw.
+		if ( !isElement( sourceElementOrData ) && config.initialData !== undefined ) {
+			// Documented in core/editor/editorconfig.jsdoc.
+			// eslint-disable-next-line ckeditor5-rules/ckeditor-error-message
+			throw new CKEditorError( 'editor-create-initial-data', null );
+		}
+
 		super( config );
+
+		if ( this.config.get( 'initialData' ) === undefined ) {
+			this.config.set( 'initialData', getInitialData( sourceElementOrData ) );
+		}
 
 		if ( isElement( sourceElementOrData ) ) {
 			this.sourceElement = sourceElementOrData;
@@ -77,7 +89,9 @@ export default class ClassicEditor extends Editor {
 	/**
 	 * Destroys the editor instance, releasing all resources used by it.
 	 *
-	 * Updates the editor's source element with the data.
+	 * Updates the original editor element with the data if the
+	 * {@link module:core/editor/editorconfig~EditorConfig#updateSourceElementOnDestroy `updateSourceElementOnDestroy`}
+	 * configuration option is set to `true`.
 	 *
 	 * @returns {Promise}
 	 */
@@ -159,13 +173,13 @@ export default class ClassicEditor extends Editor {
 	 * # Using the editor from source
 	 *
 	 * The code samples listed in the previous sections of this documentation assume that you are using an
-	 * {@glink builds/guides/predefined-builds/overview editor build} (for example – `@ckeditor/ckeditor5-build-classic`).
+	 * {@glink installation/getting-started/predefined-builds editor build} (for example – `@ckeditor/ckeditor5-build-classic`).
 	 *
 	 * If you want to use the classic editor from source (`@ckeditor/ckeditor5-editor-classic/src/classiceditor`),
 	 * you need to define the list of
 	 * {@link module:core/editor/editorconfig~EditorConfig#plugins plugins to be initialized} and
 	 * {@link module:core/editor/editorconfig~EditorConfig#toolbar toolbar items}. Read more about using the editor from
-	 * source in the {@glink builds/guides/integration/advanced-setup "Advanced setup" guide}.
+	 * source in the {@glink installation/advanced/alternative-setups/integrating-from-source dedicated guide}.
 	 *
 	 * @param {HTMLElement|String} sourceElementOrData The DOM element that will be the source for the created editor
 	 * or the editor's initial data.
@@ -174,9 +188,10 @@ export default class ClassicEditor extends Editor {
 	 * and the {@link module:editor-classic/classiceditorui~ClassicEditorUI#element editor element} will replace the passed element
 	 * in the DOM (the original one will be hidden and the editor will be injected next to it).
 	 *
-	 * Moreover, the editor data will be set back to the original element once the editor is destroyed and when a form, in which
-	 * this element is contained, is submitted (if the original element is a `<textarea>`). This ensures seamless integration with native
-	 * web forms.
+	 * If the {@link module:core/editor/editorconfig~EditorConfig#updateSourceElementOnDestroy updateSourceElementOnDestroy}
+	 * option is set to `true`, the editor data will be set back to the original element once the editor is destroyed and when a form,
+	 * in which this element is contained, is submitted (if the original element is a `<textarea>`). This ensures seamless integration
+	 * with native web forms.
 	 *
 	 * If the initial data is passed, a detached editor will be created. In this case you need to insert it into the DOM manually.
 	 * It is available under the {@link module:editor-classic/classiceditorui~ClassicEditorUI#element `editor.ui.element`} property.
@@ -191,17 +206,7 @@ export default class ClassicEditor extends Editor {
 			resolve(
 				editor.initPlugins()
 					.then( () => editor.ui.init( isElement( sourceElementOrData ) ? sourceElementOrData : null ) )
-					.then( () => {
-						if ( !isElement( sourceElementOrData ) && config.initialData ) {
-							// Documented in core/editor/editorconfig.jdoc.
-							// eslint-disable-next-line ckeditor5-rules/ckeditor-error-message
-							throw new CKEditorError( 'editor-create-initial-data', null );
-						}
-
-						const initialData = config.initialData !== undefined ? config.initialData : getInitialData( sourceElementOrData );
-
-						return editor.data.init( initialData );
-					} )
+					.then( () => editor.data.init( editor.config.get( 'initialData' ) ) )
 					.then( () => editor.fire( 'ready' ) )
 					.then( () => editor )
 			);

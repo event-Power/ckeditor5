@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -31,6 +31,8 @@ export default class InlineEditorUIView extends EditorUIView {
 	 */
 	constructor( locale, editingView, editableElement, options = {} ) {
 		super( locale );
+
+		const t = locale.t;
 
 		/**
 		 * A floating toolbar view instance.
@@ -116,7 +118,7 @@ export default class InlineEditorUIView extends EditorUIView {
 		 * See: {@link module:utils/dom/position~Options#positions}.
 		 *
 		 * @readonly
-		 * @type {Array.<module:utils/dom/position~positioningFunction>}
+		 * @type {Array.<module:utils/dom/position~PositioningFunction>}
 		 */
 		this.panelPositions = this._getPanelPositions();
 
@@ -132,7 +134,11 @@ export default class InlineEditorUIView extends EditorUIView {
 		 * @readonly
 		 * @member {module:ui/editableui/inline/inlineeditableuiview~InlineEditableUIView}
 		 */
-		this.editable = new InlineEditableUIView( locale, editingView, editableElement );
+		this.editable = new InlineEditableUIView( locale, editingView, editableElement, {
+			label: editableView => {
+				return t( 'Rich Text Editor. Editing area: %0', editableView.name );
+			}
+		} );
 
 		/**
 		 * An instance of the resize observer that helps dynamically determine the geometry of the toolbar
@@ -207,7 +213,7 @@ export default class InlineEditorUIView extends EditorUIView {
 	 * See: {@link module:utils/dom/position~Options#positions}.
 	 *
 	 * @private
-	 * @returns {Array.<module:utils/dom/position~positioningFunction>}
+	 * @returns {Array.<module:utils/dom/position~PositioningFunction>}
 	 */
 	_getPanelPositions() {
 		const positions = [

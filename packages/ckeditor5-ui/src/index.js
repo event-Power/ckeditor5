@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -10,6 +10,7 @@
 export { default as clickOutsideHandler } from './bindings/clickoutsidehandler';
 export { default as injectCssTransitionDisabler } from './bindings/injectcsstransitiondisabler';
 export { default as submitHandler } from './bindings/submithandler';
+export { default as addKeyboardHandlingForGrid } from './bindings/addkeyboardhandlingforgrid';
 
 export { default as BodyCollection } from './editorui/bodycollection';
 
@@ -32,7 +33,9 @@ export { default as FormHeaderView } from './formheader/formheaderview';
 export { default as FocusCycler } from './focuscycler';
 
 export { default as IconView } from './icon/iconview';
+export { default as InputView } from './input/inputview';
 export { default as InputTextView } from './inputtext/inputtextview';
+export { default as InputNumberView } from './inputnumber/inputnumberview';
 
 export { default as IframeView } from './iframe/iframeview';
 
@@ -50,12 +53,11 @@ export { default as BalloonPanelView } from './panel/balloon/balloonpanelview';
 export { default as ContextualBalloon } from './panel/balloon/contextualballoon';
 export { default as StickyPanelView } from './panel/sticky/stickypanelview';
 
-export { default as TooltipView } from './tooltip/tooltipview';
+export { default as TooltipManager } from './tooltipmanager';
 export { default as Template } from './template';
 
 export { default as ToolbarView } from './toolbar/toolbarview';
 export { default as ToolbarSeparatorView } from './toolbar/toolbarseparatorview';
-export { default as enableToolbarKeyboardFocus } from './toolbar/enabletoolbarkeyboardfocus';
 export { default as normalizeToolbarConfig } from './toolbar/normalizetoolbarconfig';
 export { default as BalloonToolbar } from './toolbar/balloon/balloontoolbar';
 export { default as BlockToolbar } from './toolbar/block/blocktoolbar';

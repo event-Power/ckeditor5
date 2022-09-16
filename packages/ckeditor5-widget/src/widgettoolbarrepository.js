@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -124,10 +124,18 @@ export default class WidgetToolbarRepository extends Plugin {
 		// Trying to register a toolbar without any item.
 		if ( !items.length ) {
 			/**
-			 * When {@link #register} a new toolbar, you need to provide a non-empty array with
+			 * When {@link #register registering} a new widget toolbar, you need to provide a non-empty array with
 			 * the items that will be inserted into the toolbar.
 			 *
+			 * If you see this error when integrating the editor, you likely forgot to configure one of the widget toolbars.
+			 *
+			 * See for instance:
+			 *
+			 * * {@link module:table/table~TableConfig#contentToolbar `config.table.contentToolbar`}
+			 * * {@link module:image/image~ImageConfig#toolbar `config.image.toolbar`}
+			 *
 			 * @error widget-toolbar-no-items
+			 * @param {String} toolbarId The id of the toolbar that has not been configured correctly.
 			 */
 			logWarning( 'widget-toolbar-no-items', { toolbarId } );
 
@@ -152,11 +160,28 @@ export default class WidgetToolbarRepository extends Plugin {
 
 		toolbarView.fillFromConfig( items, editor.ui.componentFactory );
 
-		this._toolbarDefinitions.set( toolbarId, {
+		const toolbarDefinition = {
 			view: toolbarView,
 			getRelatedElement,
 			balloonClassName
+		};
+
+		// Register the toolbar so it becomes available for Alt+F10 and Esc navigation.
+		editor.ui.addToolbar( toolbarView, {
+			isContextual: true,
+			beforeFocus: () => {
+				const relatedElement = getRelatedElement( editor.editing.view.document.selection );
+
+				if ( relatedElement ) {
+					this._showToolbar( toolbarDefinition, relatedElement );
+				}
+			},
+			afterBlur: () => {
+				this._hideToolbar( toolbarDefinition );
+			}
 		} );
+
+		this._toolbarDefinitions.set( toolbarId, toolbarDefinition );
 	}
 
 	/**

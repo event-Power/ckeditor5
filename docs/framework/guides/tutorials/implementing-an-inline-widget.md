@@ -296,8 +296,8 @@ The HTML structure (data output) of the converter will be a `<span>` with a `pla
 <span class="placeholder">{name}</span>
 ```
 
-* **Upcast conversion**. This view-to-model converter will look for `<span>`s with the `placeholder` class, read the `<span>`'s text and create model `<placeholder>` elements with the `name` attribute set accordingly.
-* **Downcast conversion**. The model-to-view conversion will be slightly different for "editing" and "data" pipelines as the "editing downcast" pipeline will use widget utilities to enable widget-specific behavior in the editing view. In both pipelines, the element will be rendered using the same structure.
+* {@link framework/guides/deep-dive/conversion/upcast **Upcast conversion**}. This view-to-model converter will look for `<span>`s with the `placeholder` class, read the `<span>`'s text and create model `<placeholder>` elements with the `name` attribute set accordingly.
+* {@link framework/guides/deep-dive/conversion/downcast **Downcast conversion**}. The model-to-view conversion will be slightly different for "editing" and "data" pipelines as the "editing downcast" pipeline will use widget utilities to enable widget-specific behavior in the editing view. In both pipelines, the element will be rendered using the same structure.
 
 ```js
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
@@ -361,8 +361,6 @@ export default class PlaceholderEditing extends Plugin {
 
 			const placeholderView = viewWriter.createContainerElement( 'span', {
 				class: 'placeholder'
-			}, {
-				isAllowedInsideAttributeElement: true
 			} );
 
 			// Insert the placeholder name (as a text).
@@ -410,7 +408,7 @@ export default class PlaceholderCommand extends Command {
 		const selection = editor.model.document.selection;
 
 		editor.model.change( writer => {
-			// Create a <placeholder> elment with the "name" attribute (and all the selection attributes)...
+			// Create a <placeholder> element with the "name" attribute (and all the selection attributes)...
 			const placeholder = writer.createElement( 'placeholder', {
 				...Object.fromEntries( selection.getAttributes() ),
                 name: value
@@ -745,11 +743,11 @@ If you open the dropdown in the toolbar, you will see a new list of placeholders
 
 ## Demo
 
-You can see the placeholder widget implementation in action in the editor below. You can also check out the full [source code](#full-source-code) of this tutorial if you want to develop your own inline widgets.
+You can see the placeholder widget implementation in action in the editor below. You can also check out the full [source code](#final-solution) of this tutorial if you want to develop your own inline widgets.
 
 {@snippet framework/tutorials/inline-widget}
 
-## Full source code
+## Final solution
 
 The following code snippet contains a complete implementation of the `Placeholder` plugin (and all its dependencies) and the code to run the editor. You can paste it into the `app.js` file and it will run out–of–the–box:
 
@@ -783,7 +781,7 @@ class PlaceholderCommand extends Command {
 		const selection = editor.model.document.selection;
 
 		editor.model.change( writer => {
-			// Create a <placeholder> elment with the "name" attribute (and all the selection attributes)...
+			// Create a <placeholder> element with the "name" attribute (and all the selection attributes)...
 			const placeholder = writer.createElement( 'placeholder', {
 				...Object.fromEntries( selection.getAttributes() ),
 				name: value
@@ -944,8 +942,6 @@ class PlaceholderEditing extends Plugin {
 
 			const placeholderView = viewWriter.createContainerElement( 'span', {
 				class: 'placeholder'
-			}, {
-				isAllowedInsideAttributeElement: true
 			} );
 
 			// Insert the placeholder name (as a text).

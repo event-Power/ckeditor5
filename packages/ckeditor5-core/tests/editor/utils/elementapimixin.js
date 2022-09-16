@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -34,8 +34,35 @@ describe( 'ElementApiMixin', () => {
 			expect( editor ).have.property( 'updateSourceElement' ).to.be.a( 'function' );
 		} );
 
-		it( 'sets data to editor element', () => {
+		it( 'don\'t set the data to editor element', () => {
 			const editorElement = document.createElement( 'div' );
+
+			editor.data.set( 'foo bar' );
+
+			editor.sourceElement = editorElement;
+
+			editor.updateSourceElement();
+
+			expect( editorElement.innerHTML ).to.equal( '' );
+		} );
+
+		it( 'sets data to editor element (div)', () => {
+			const editorElement = document.createElement( 'div' );
+
+			// Adding `updateSourceElementOnDestroy` config to the editor allows setting the data
+			// back to the source element.
+			editor.config.set( 'updateSourceElementOnDestroy', true );
+			editor.data.set( 'foo bar' );
+
+			editor.sourceElement = editorElement;
+
+			editor.updateSourceElement();
+
+			expect( editorElement.innerHTML ).to.equal( 'foo bar' );
+		} );
+
+		it( 'sets data to editor element (textarea)', () => {
+			const editorElement = document.createElement( 'textarea' );
 
 			editor.data.set( 'foo bar' );
 

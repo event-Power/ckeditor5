@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -19,7 +19,7 @@ const versionUtils = require( '@ckeditor/ckeditor5-dev-env/lib/release-tools/uti
 
 const CWD = process.cwd();
 const UTILS_PACKAGE_PATH = path.join( CWD, 'packages', 'ckeditor5-utils' );
-const UTILS_MODULE_PATH = path.join( UTILS_PACKAGE_PATH, 'src', 'version.js' );
+const UTILS_MODULE_PATH = path.join( UTILS_PACKAGE_PATH, 'src', 'version.ts' );
 
 const version = versionUtils.getLastFromChangelog();
 
@@ -31,7 +31,7 @@ fs.writeFileSync( UTILS_MODULE_PATH, fileContent );
 process.chdir( UTILS_PACKAGE_PATH );
 
 if ( exec( 'git status -s' ).trim().length ) {
-	exec( 'git add src/version.js' );
+	exec( 'git add src/version.ts' );
 	exec( 'git commit -m "Internal (utils): Updated version of CKEditor 5."' );
 
 	console.log( `The hardcoded version in ckeditor5-utils has been updated to ${ version }.` );

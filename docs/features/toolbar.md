@@ -10,7 +10,7 @@ order: 10
 The toolbar is the most basic user interface element of the WYSIWYG editor that gives convenient access to all its features. It contains various items like buttons or dropdowns that you can use to format, manage, insert and alter elements of the content.
 
 <info-box hint>
-    Toolbar configuration is a strict UI-related setting. Removing a toolbar item does not remove the feature from the editor internals. If your goal with the toolbar configuration is to remove features, the right solution is to also remove their respective plugins. Check {@link builds/guides/integration/configuration#removing-features removing features} for more information.
+    Toolbar configuration is a strict UI-related setting. Removing a toolbar item does not remove the feature from the editor internals. If your goal with the toolbar configuration is to remove features, the right solution is to also remove their respective plugins. Check {@link installation/getting-started/configuration#removing-features removing features} for more information.
 </info-box>
 
 ## Basic toolbar configuration
@@ -156,8 +156,8 @@ Array.from( editor.ui.componentFactory.names() );
 
 ## Adding a custom button
 
-Refer to the {@link framework/guides/creating-simple-plugin Creating a simple plugin} guide to learn how to build your own plugin, register its button and add it to the toolbar configuration.
+Refer to the {@link framework/guides/creating-simple-plugin-timestamp Creating a simple plugin} guide to learn how to build your own plugin, register its button and add it to the toolbar configuration.
 
 ## Block toolbar
 
-The {@link features/blocktoolbar BlockToolbar} feature provides an additional configurable toolbar on the left-hand side of the content area, useful when the main toolbar is not accessible (e.g. in certain {@link builds/guides/overview#balloon-block-editor balloon block editor} scenarios).
+The {@link features/blocktoolbar BlockToolbar} feature provides an additional configurable toolbar on the left-hand side of the content area, useful when the main toolbar is not accessible (e.g. in certain {@link installation/getting-started/predefined-builds#balloon-block-editor balloon block editor} scenarios).

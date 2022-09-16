@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -222,13 +222,18 @@ export default class SplitButtonView extends View {
 
 		arrowView.extendTemplate( {
 			attributes: {
-				class: 'ck-splitbutton__arrow',
+				class: [
+					'ck-splitbutton__arrow'
+				],
+				'data-cke-tooltip-disabled': bind.to( 'isOn' ),
 				'aria-haspopup': true,
 				'aria-expanded': bind.to( 'isOn', value => String( value ) )
 			}
 		} );
 
 		arrowView.bind( 'isEnabled' ).to( this );
+		arrowView.bind( 'label' ).to( this );
+		arrowView.bind( 'tooltip' ).to( this );
 
 		arrowView.delegate( 'execute' ).to( this, 'open' );
 

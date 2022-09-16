@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -103,7 +103,9 @@ export default class IconView extends View {
 				this.viewBox = viewBox;
 			}
 
-			this.element.innerHTML = '';
+			while ( this.element.firstChild ) {
+				this.element.removeChild( this.element.firstChild );
+			}
 
 			while ( svg.childNodes.length > 0 ) {
 				this.element.appendChild( svg.childNodes[ 0 ] );

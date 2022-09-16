@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -26,13 +26,19 @@ export default class BalloonEditorUIView extends EditorUIView {
 	constructor( locale, editingView, editableElement ) {
 		super( locale );
 
+		const t = locale.t;
+
 		/**
 		 * The editable UI view.
 		 *
 		 * @readonly
 		 * @member {module:ui/editableui/inline/inlineeditableuiview~InlineEditableUIView}
 		 */
-		this.editable = new InlineEditableUIView( locale, editingView, editableElement );
+		this.editable = new InlineEditableUIView( locale, editingView, editableElement, {
+			label: editableView => {
+				return t( 'Rich Text Editor. Editing area: %0', editableView.name );
+			}
+		} );
 	}
 
 	/**

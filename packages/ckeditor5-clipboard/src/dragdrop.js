@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -551,7 +551,7 @@ export default class DragDrop extends Plugin {
 					const domElement = this.toDomElement( domDocument );
 
 					// Using word joiner to make this marker as high as text and also making text not break on marker.
-					domElement.innerHTML = '&NoBreak;<span></span>&NoBreak;';
+					domElement.append( '\u2060', domDocument.createElement( 'span' ), '\u2060' );
 
 					return domElement;
 				} );
