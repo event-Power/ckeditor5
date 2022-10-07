@@ -18,7 +18,6 @@ import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
 import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import FontBackgroundColor from '@ckeditor/ckeditor5-font/src/fontbackgroundcolor';
-import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor';
 import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily';
 import FontSize from '@ckeditor/ckeditor5-font/src/fontsize';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
@@ -48,6 +47,10 @@ import Title from '@ckeditor/ckeditor5-heading/src/title';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
+
+// Custom plugins
+import FontColor from '../../colorpicker/fontcolor';
+import BackgroundColor from '../../backgroundcolorpicker/backgroundcolor';
 
 import ImageBrowser from './imagebrowser.js';
 
@@ -97,7 +100,9 @@ const plugins = [
 	TextTransformation,
   // Title,
   Underline,
-  WordCount
+  WordCount,
+  FontColor,
+	BackgroundColor
 ];
 
 // Plugins to include in the build.
@@ -117,7 +122,7 @@ const config = {
       'link',
       'bulletedList',
       'numberedList',
-      'fontBackgroundColor',
+      'backgroundColor',
       'fontColor',
       'removeFormat',
       '|',
