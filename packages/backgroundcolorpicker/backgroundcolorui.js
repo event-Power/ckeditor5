@@ -1,5 +1,5 @@
 import { BACKGROUND_COLOR } from './constants';
-// import fontColorIcon from './theme/icons/font-color.svg';
+import fontBackgroundColorIcon from './theme/icons/font-background.svg';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ColorTableView from './ui/colortableview';
 import { removeWhitespaceFromColor } from './utils';
@@ -54,9 +54,9 @@ export default class BackgroundColorUI extends Plugin {
 
 			dropdownView.buttonView.set({
 				label: t('Background Color'),
-				// icon: fontColorIcon,
+				icon: fontBackgroundColorIcon,
 				tooltip: true,
-				withText: true,
+				// withText: true,
 			});
 
 			dropdownView.extendTemplate({

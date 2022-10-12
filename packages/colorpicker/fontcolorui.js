@@ -1,5 +1,5 @@
 import { FONT_COLOR } from './constants';
-// import fontColorIcon from './theme/icons/font-color.svg';
+import fontColorIcon from './theme/icons/font-color.svg';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ColorTableView from './ui/colortableview';
 import { removeWhitespaceFromColor } from './utils';
@@ -54,9 +54,9 @@ export default class FontColorUI extends Plugin {
 
 			dropdownView.buttonView.set({
 				label: t('Font Color'),
-				// icon: fontColorIcon,
+				icon: fontColorIcon,
 				tooltip: true,
-				withText: true,
+				// withText: true,
 			});
 
 			dropdownView.extendTemplate({
