@@ -20,6 +20,7 @@ import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import FontBackgroundColor from '@ckeditor/ckeditor5-font/src/fontbackgroundcolor';
 import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily';
 import FontSize from '@ckeditor/ckeditor5-font/src/fontsize';
+import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline';
 import HtmlEmbed from '@ckeditor/ckeditor5-html-embed/src/htmlembed';
@@ -51,6 +52,8 @@ import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
 // Custom plugins
 import FontColor from '../../colorpicker/fontcolor';
 import BackgroundColor from '../../backgroundcolorpicker/backgroundcolor';
+import DocLink from '../../doc-link/src/doclink';
+import FileLink from '../../filelink/src/filelink';
 
 import ImageBrowser from './imagebrowser.js';
 
@@ -66,6 +69,7 @@ const plugins = [
   FontBackgroundColor,
   FontColor,
   FontFamily,
+  FileLink,
   FontSize,
 	UploadAdapter,
 	Autoformat,
@@ -77,6 +81,7 @@ const plugins = [
 	Heading,
   HorizontalLine,
   HtmlEmbed,
+  GeneralHtmlSupport,
 	Image,
 	ImageCaption,
   ImageInsert,
@@ -102,7 +107,8 @@ const plugins = [
   Underline,
   WordCount,
   FontColor,
-	BackgroundColor
+	BackgroundColor,
+  DocLink
 ];
 
 // Plugins to include in the build.
@@ -140,7 +146,8 @@ const config = {
       'horizontalLine',
       'htmlEmbed',
       'sourceEditing',
-      'imageBrowser'
+      'imageBrowser',
+      'fileLink',
     ],
     shouldNotGroupWhenFull: true
   },

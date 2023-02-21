@@ -18,12 +18,19 @@ export default class ImageBrowser extends Plugin {
 
             // Callback executed once the image is clicked.
             view.on( 'execute', () => {
-              const browserUrl = editor.config.get('imageBrowser').browserUrl;
-              const galleryElement = editor.config.get('imageBrowser').browserElement;
+              const browserUrl = editor.config.get('fileBrowser').browserUrl;
+              const galleryElement = editor.config.get('fileBrowser').browserElement;
 
               // modal(galleryElement);
               // i.e. 'http://localhost:3000/asset/editor_images/21BWI-ANNUAL'
-              fetch(browserUrl).then(function (response) {
+              var processedUrl = '';
+              if(browserUrl.includes('?')) {
+                processedUrl = browserUrl + '&' + new URLSearchParams({browser_mode: 'image'});
+              }
+              else {
+                processedUrl = browserUrl + '?' + new URLSearchParams({browser_mode: 'image'});
+              }
+              fetch(processedUrl).then(function (response) {
               	// The API call was successful!
               	return response.text();
               }).then(function (data) {

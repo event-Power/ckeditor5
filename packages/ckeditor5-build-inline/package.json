@@ -46,7 +46,6 @@
     "@ckeditor/ckeditor5-paragraph": "^31.1.0",
     "@ckeditor/ckeditor5-paste-from-office": "^31.1.0",
     "@ckeditor/ckeditor5-table": "^31.1.0",
-    "@ckeditor/ckeditor5-typing": "^31.1.0",
     "babel-loader": "^8.2.3",
     "regenerator-runtime": "^0.13.9"
   },
@@ -60,9 +59,12 @@
     "@ckeditor/ckeditor5-font": "^31.1.0",
     "@ckeditor/ckeditor5-horizontal-line": "^31.1.0",
     "@ckeditor/ckeditor5-html-embed": "^31.1.0",
+    "@ckeditor/ckeditor5-html-support": "^31.1.0",
     "@ckeditor/ckeditor5-remove-format": "^31.1.0",
     "@ckeditor/ckeditor5-source-editing": "^31.1.0",
     "@ckeditor/ckeditor5-theme-lark": "^31.1.0",
+    "@ckeditor/ckeditor5-typing": "^31.1.0",
+    "@ckeditor/ckeditor5-ui": "^31.1.0",
     "@ckeditor/ckeditor5-word-count": "^31.1.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^4.0.1",
@@ -85,7 +87,7 @@
     "directory": "packages/ckeditor5-build-inline"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
     "preversion": "npm run build"
   }
 }
