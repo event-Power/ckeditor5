@@ -1,5 +1,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
+import fileIcon from '../theme/icons/browse-files.svg';
 // import { ContextualBalloon, clickOutsideHandler} from '@ckeditor/ckeditor5-ui';
 // import FormView from './doclinkview'
 // import './styles.css';
@@ -23,7 +24,7 @@ export default class FileLinkUI extends Plugin {
       button.set( {
         label: 'Insert file asset',
         tooltip: true,
-        withText: true
+        icon: fileIcon
       })
 
       this.listenTo( button, 'execute', () => {
@@ -72,7 +73,7 @@ export default class FileLinkUI extends Plugin {
             }
 
             editor.model.change( writer => {
-                if(selected_type == 'image'){
+                if(selected_type == 'image' && asset_mode == 'image'){
                   const imageElement = writer.createElement( 'imageBlock', {
                       src: selected_image.attr('src')
                   } );
@@ -82,7 +83,13 @@ export default class FileLinkUI extends Plugin {
                 }
                 else {
                   const insertPosition = editor.model.document.selection.getFirstPosition();
-                  writer.insertText( 'Click Here', { linkHref: selected_image.attr('src') }, insertPosition );
+                  // Remove height and width transformations
+                  var new_url = selected_image.attr('src');
+                  new_url = new_url.replace(/h_150/, '');
+                  new_url = new_url.replace(/w_150/, '');
+                  writer.insertText( ' ', insertPosition );
+                  writer.insertText( 'File', { linkHref: new_url }, insertPosition );
+                  writer.insertText( ' ', insertPosition );
                 }
                 $(galleryElement).dialog('close');
                 editor.editing.view.focus();

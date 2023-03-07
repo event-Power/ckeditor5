@@ -52,7 +52,7 @@ import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount';
 // Custom plugins
 import FontColor from '../../colorpicker/fontcolor';
 import BackgroundColor from '../../backgroundcolorpicker/backgroundcolor';
-import DocLink from '../../doc-link/src/doclink';
+// import DocLink from '../../doc-link/src/doclink';
 import FileLink from '../../filelink/src/filelink';
 
 import ImageBrowser from './imagebrowser.js';
@@ -107,8 +107,7 @@ const plugins = [
   Underline,
   WordCount,
   FontColor,
-	BackgroundColor,
-  DocLink
+	BackgroundColor
 ];
 
 // Plugins to include in the build.

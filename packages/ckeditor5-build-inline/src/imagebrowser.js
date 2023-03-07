@@ -72,7 +72,9 @@ export default class ImageBrowser extends Plugin {
                       }
                       else {
                         const insertPosition = editor.model.document.selection.getFirstPosition();
-                        writer.insertText( 'Click Here', { linkHref: selected_image.attr('src') }, insertPosition );
+                        writer.insertText( ' ', insertPosition );
+                        writer.insertText( 'File', { linkHref: selected_image.attr('src') }, insertPosition );
+                        writer.insertText( ' ', insertPosition );
                       }
                       $(galleryElement).dialog('close');
                       editor.editing.view.focus();
