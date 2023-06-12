@@ -64,7 +64,8 @@ export default class ImageBrowser extends Plugin {
                   editor.model.change( writer => {
                       if(selected_type == 'image'){
                         const imageElement = writer.createElement( 'imageBlock', {
-                            src: selected_image.attr('src')
+                            src: selected_image.attr('src'),
+                            alt: $('#text_alt').val()
                         } );
 
                         // Insert the image in the current selection location.
